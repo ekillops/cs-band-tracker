@@ -200,5 +200,44 @@ namespace BandTracker.Objects
 
       return allPerformances;
     }
+
+
+    public void AddGenre(int genreId)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO genres_venues (genre_id, venue_id) VALUES (@genreId, @venueId);", conn);
+      cmd.Parameters.AddWithValue("@genreId", genreId);
+      cmd.Parameters.AddWithValue("@venueId", this.Id);
+      cmd.ExecuteNonQuery();
+
+      if (conn != null) conn.Close();
+    }
+
+    //Returns a Dictionary of <Genre ID, Genre Name>
+    public Dictionary<int, string> GetGenres()
+    {
+      Dictionary<int, string> allGenres = new Dictionary<int, string>();
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT genres.id, genres.name FROM genres_venues JOIN genres ON (genres_venues.genre_id = genres.id) WHERE genres_venues.venue_id = @venueId;", conn);
+      cmd.Parameters.AddWithValue("@venueId", this.Id);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while (rdr.Read())
+      {
+        int genreId = rdr.GetInt32(0);
+        string genreName = rdr.GetString(1);
+        allGenres.Add(genreId, genreName);
+      }
+      if (rdr != null) rdr.Close();
+      if (conn != null) conn.Close();
+
+      return allGenres;
+    }
   }
 }
