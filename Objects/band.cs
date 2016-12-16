@@ -169,6 +169,7 @@ namespace BandTracker.Objects
       if (conn != null) conn.Close();
     }
 
+    //Returns a Dictionary of <Venue ID, Venue Name>
     public Dictionary<int, string> GetPerformances()
     {
       Dictionary<int, string> allPerformances = new Dictionary<int, string>();

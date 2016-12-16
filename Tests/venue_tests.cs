@@ -65,6 +65,28 @@ namespace BandTracker
       Assert.Equal(expectedList, resultList);
     }
 
+    [Fact]//Also tests AddPerformance
+    public void GetPerformances_RetrievesDataFromDB_DictionaryOfInfo()
+    {
+      //Arrange
+      Band testBand1 = new Band("Wild Nothing", 5);
+      testBand1.Save();
+      Band testBand2 = new Band("The Shins", 5);
+      testBand2.Save();
+      Venue testVenue = new Venue("Doug Fir", "Medium", 300);
+      testVenue.Save();
 
+      Dictionary<int, string> expectedPerformances = new Dictionary<int, string>()
+      {
+        {testBand1.Id, testBand1.Name},
+        {testBand2.Id, testBand2.Name}
+      };
+      //Act
+      testVenue.AddPerformance(testBand1.Id);
+      testVenue.AddPerformance(testBand2.Id);
+      Dictionary<int, string> retrievedPerformances = testVenue.GetPerformances();
+      //Assert
+      Assert.Equal(expectedPerformances, retrievedPerformances);
+    }
   }
 }

@@ -161,5 +161,44 @@ namespace BandTracker.Objects
 
       if (conn != null) conn.Close();
     }
+
+    //Methods for DB Relations
+    public void AddPerformance(int bandId)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO performances (band_id, venue_id) VALUES (@bandId, @venueId);", conn);
+      cmd.Parameters.AddWithValue("@bandId", bandId);
+      cmd.Parameters.AddWithValue("@venueId", this.Id);
+      cmd.ExecuteNonQuery();
+
+      if (conn != null) conn.Close();
+    }
+
+    //Returns a Dictionary of <Band ID, Band Name>
+    public Dictionary<int, string> GetPerformances()
+    {
+      Dictionary<int, string> allPerformances = new Dictionary<int, string>();
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT bands.id, bands.name FROM performances JOIN bands ON (performances.band_id = bands.id) WHERE performances.venue_id = @venueId;", conn);
+      cmd.Parameters.AddWithValue("@venueId", this.Id);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while (rdr.Read())
+      {
+        int bandId = rdr.GetInt32(0);
+        string bandName = rdr.GetString(1);
+        allPerformances.Add(bandId, bandName);
+      }
+      if (rdr != null) rdr.Close();
+      if (conn != null) conn.Close();
+
+      return allPerformances;
+    }
   }
 }
