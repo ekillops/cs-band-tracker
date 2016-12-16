@@ -1,0 +1,33 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+<h3>All Bands</h3>
+@if (Model.Count != 0)
+{
+  @foreach (var band in Model)
+  {
+    var genres = band.GetGenres();
+    <br>
+    <h4>@band.Name</h4>
+    <p>Genres:</p>
+    <ul>
+      @foreach (var genre in genres)
+      {
+        <li>@genre.Name</li>
+      }
+    </ul>
+    <p><small><a href="/bands/@band.Id">[visit band page]</small></a></p>
+  }
+}
+else
+{
+  <p>There are no bands to display</p>
+}
+
+<p>
+  <a href="/bands/new" class="btn btn-primary btn-md">New Band</a>
+  <form class="form-inline" action="/bands/delete_all" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit" class="btn btn-primary btn-md">Delete All</button>
+  </form>
+</p>

@@ -1,0 +1,51 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+  var genres = Model.GetGenres(); @*Object list*@
+  var performances = Model.GetPerformances(); @*Dictionary*@
+}
+<div class="row">
+  <div class="col-md-3">
+    <h3>@Model.Name</h3>
+    <p># of members: @Model.NumberMembers</p>
+  </div>
+  <div class="col-md-3">
+    <h4>Styles:</h4>
+    @if (genres.Count != 0)
+    {
+      <ul>
+      @foreach(var genre in genres)
+      {
+        <li>@genre.Name</li>
+      }
+      </ul>
+    }
+    else
+    {
+      <p>No genres added.</p>
+    }
+  </div>
+  <div class="col-md-4">
+  <h4>Venues performed at:</h4>
+  @if (performances.Count != 0)
+  {
+    <ul>
+    @foreach(var venue in performances)
+    {
+      <li><a href="/venues/@venue.Key">@venue.Value</a></li>
+    }
+    </ul>
+  }
+  else
+  {
+    <p>There are no performances to display.</p>
+  }
+  </div>
+  <div class="col-md-2">
+    <a href="/bands/@Model.Id/update" class="btn btn-primary btn-md">Edit Band</a>
+    <form  class="form-inline" action="/bands/delete" method="post">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="hidden" name="target-id" value="@Model.Id">
+      <button type="submit" class="btn btn-primary bnt-md">Delete Band</button>
+    </form>
+  </div>
+</div>

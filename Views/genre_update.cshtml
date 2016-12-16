@@ -1,0 +1,9 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+<h3>Update Genre</h3>
+
+<form action="/genres/new" method="post">
+  <input type="text" class="form-control" name="genre-name" value="@Model.Name" required>
+  <button type="submit" class="btn btn-primary btn-md">Update</button>
+</form>

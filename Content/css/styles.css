@@ -1,0 +1,10 @@
+h3 {
+  margin-top: 10px
+}
+
+.gray-line {
+  display: block;
+  margin-top: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}

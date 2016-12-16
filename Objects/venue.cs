@@ -256,7 +256,7 @@ namespace BandTracker.Objects
       {
         int bandId = rdr.GetInt32(0);
         string bandName = rdr.GetString(1);
-        int bandMembers = rdr.GetInt32(2)
+        int bandMembers = rdr.GetInt32(2);
         allBands.Add(new Band(bandName, bandMembers, bandId));
       }
       if (rdr != null) rdr.Close();

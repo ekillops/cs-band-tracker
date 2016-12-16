@@ -1,0 +1,49 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+  var venues = Model.GetVenues(); @*Object list*@
+  var bands = Model.GetBands(); @*Object list*@
+}
+<div class="row">
+  <div class="col-md-3">
+      <h3>@Model.Name</h3>
+  </div>
+  <div class="col-md-3">
+    <h4>Bands:</h4>
+    @if (bands.Count != 0)
+    {
+      <ul>
+      @foreach(var band in bands)
+      {
+        <li>@band.Name <small><a href="/bands/@band.Id">[visit band page]</a></small></li>
+      }
+      </ul>
+    }
+    else
+    {
+      <p>No bands added.</p>
+    }
+  </div>
+  <div class="col-md-4">
+    <h4>Venues featuring this genre:</h4>
+    @if (venues.Count != 0)
+    {
+      <ul>
+      @foreach(var venue in venues)
+      {
+        <li><a href="/venues/@venue.Id">@venue.Name</a></li>
+      }
+      </ul>
+    }
+    else
+    {
+      <p>There are no venues to display.</p>
+    }
+  </div>
+  <div class="col-md-2">
+    <form class="form-inline" action="/genres/delete" method="post">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="hidden" name="target-id" value="@Model.Id">
+      <button type="submit" class="btn btn-primary btn-md">Delete Genre</button>
+    </form>
+  </div>
+</div>

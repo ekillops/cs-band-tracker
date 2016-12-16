@@ -1,0 +1,34 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+<h3>All Venues</h3>
+@if (Model.Count != 0)
+{
+  @foreach(var venue in Model)
+  {
+    var genres = @venue.GetGenres();
+    <br>
+    <h4>@venue.Name</h4>
+    <p>Size: @venue.Size</p>
+    <p>Capacity: @venue.Capacity</p>
+    <p>Genres:</p>
+    <ul>
+      @foreach(var genre in genres)
+      {
+        <li>@genre.Name</li>
+      }
+    </ul>
+    <p><small><a href="/venues/@venue.Id">[visit venue page]</small></a></p>
+  }
+}
+else
+{
+  <p>There are no bands to display</p>
+}
+<p>
+  <a href="/venues/new" class="btn btn-primary btn-md">New Venue</a>
+  <form class="form-inline" action="/venues/delete_all" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit" class="btn btn-primary btn-md">Delete All</button>
+  </form>
+</p>

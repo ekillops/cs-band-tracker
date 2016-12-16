@@ -214,7 +214,7 @@ namespace BandTracker.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT genres.id, genres.name FROM bands_genres JOIN genres ON (bands_genres.genre_id = genres.id) WHERE band_genres.band_id = @bandId;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT genres.id, genres.name FROM bands_genres JOIN genres ON (bands_genres.genre_id = genres.id) WHERE bands_genres.band_id = @bandId;", conn);
       cmd.Parameters.AddWithValue("@bandId", this.Id);
 
       SqlDataReader rdr = cmd.ExecuteReader();
