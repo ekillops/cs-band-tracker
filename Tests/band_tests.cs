@@ -18,6 +18,7 @@ namespace BandTracker
     public void Dispose()
     {
       Band.DeleteAll();
+      Venue.DeleteAll();
     }
 
     [Fact] //Tests find and save at the same time
@@ -65,6 +66,27 @@ namespace BandTracker
       Assert.Equal(expectedList, resultList);
     }
 
-
+    [Fact]//Also tests AddPerformance
+    public void GetPerformances_RetrievesDataFromDB_DictionaryOfInfo()
+    {
+      //Arrange
+      Band testBand = new Band("Wild Nothing", 5);
+      testBand.Save();
+      Venue testVenue1 = new Venue("Doug Fir", "Medium", 300);
+      testVenue1.Save();
+      Venue testVenue2 = new Venue("Mississippi Studios", "Medium", 300);
+      testVenue2.Save();
+      Dictionary<int, string> expectedPerformances = new Dictionary<int, string>()
+      {
+        {testVenue1.Id, testVenue1.Name},
+        {testVenue2.Id, testVenue2.Name}
+      };
+      //Act
+      testBand.AddPerformance(testVenue1.Id);
+      testBand.AddPerformance(testVenue2.Id);
+      Dictionary<int, string> retrievedPerformances = testBand.GetPerformances();
+      //Assert
+      Assert.Equal(expectedPerformances, retrievedPerformances);
+    }
   }
 }

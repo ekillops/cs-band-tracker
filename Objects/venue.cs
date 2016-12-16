@@ -128,7 +128,7 @@ namespace BandTracker.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("UPDATE venues (name, size, capacity) WHERE id = @targetId VALUES (@name, @size, @capacity);", conn);
+      SqlCommand cmd = new SqlCommand("UPDATE venues SET name = @name, size = @size, capacity = @capacity WHERE id = @targetId;", conn);
       cmd.Parameters.AddWithValue("@targetId", targetId);
       cmd.Parameters.AddWithValue("@name", newName);
       cmd.Parameters.AddWithValue("@size", newSize);
@@ -144,7 +144,7 @@ namespace BandTracker.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("DELETE FROM venues WHERE id = @targetId;", conn);
+      SqlCommand cmd = new SqlCommand("DELETE FROM performances WHERE venue_id = @targetId; DELETE FROM venues WHERE id = @targetId;", conn);
       cmd.Parameters.AddWithValue("@targetId", targetId);
       cmd.ExecuteNonQuery();
 
@@ -156,7 +156,7 @@ namespace BandTracker.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("DELETE FROM venues;", conn);
+      SqlCommand cmd = new SqlCommand("DELETE FROM performances; DELETE FROM venues;", conn);
       cmd.ExecuteNonQuery();
 
       if (conn != null) conn.Close();
