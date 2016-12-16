@@ -90,7 +90,60 @@ namespace BandTracker.Objects
       return foundBand;
     }
 
+    public static List<Band> GetAll()
+    {
+      List<Band> allBands = new List<Band> {};
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM bands;", conn);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int foundId = rdr.GetInt32(0);
+        string foundName = rdr.GetString(1);
+        int foundNumberMembers = rdr.GetInt32(2);
+        allBands.Add(new Band(foundName, foundNumberMembers, foundId));
+      }
+
+
+      if (rdr != null) rdr.Close();
+      if (conn != null) conn.Close();
+
+      return allBands;
+    }
+
+    //UPDATE
+    public static void Update(int targetId, string newName, int newNumberMembers)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE bands (name, number_members) WHERE id = @targetId VALUES (@name, @numberMembers);", conn);
+      cmd.Parameters.AddWithValue("@targetId", targetId);
+      cmd.Parameters.AddWithValue("@name", newName);
+      cmd.Parameters.AddWithValue("@@numberMembers", newNumberMembers);
+      cmd.ExecuteNonQuery();
+
+      if (conn != null) conn.Close();
+    }
+
     //DESTROY
+    public static void Delete(int targetId)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM bands WHERE id = @targetId;", conn);
+      cmd.Parameters.AddWithValue("@targetId", targetId);
+      cmd.ExecuteNonQuery();
+
+      if (conn != null) conn.Close();
+    }
+
     public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();

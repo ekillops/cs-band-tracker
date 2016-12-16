@@ -31,5 +31,21 @@ namespace BandTracker
       //Assert
       Assert.Equal(testBand, retrievedBand);
     }
+
+    [Fact]
+    public void DeleteAll_EmptiesDatabase_EmptyList()
+    {
+      //Arrange
+      Band testBand1 = new Band("The Chameleons", 4);
+      testBand1.Save();
+      Band testBand2 = new Band("The Olllam", 4);
+      testBand2.Save();
+      List<Band> expectedEmptyList = new List<Band> {};
+      //Act
+      Band.DeleteAll();
+      List<Band> resultList = Band.GetAll();
+      //Assert
+      Assert.Equal(expectedEmptyList, resultList);
+    }
   }
 }
