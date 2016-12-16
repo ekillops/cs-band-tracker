@@ -32,8 +32,8 @@ namespace BandTracker.Objects
         bool idEquality = this.Id == testVenue.Id;
         bool nameEquality = this.Name == testVenue.Name;
         bool sizeEquality = this.Size == testVenue.Size;
-        bool capactiyEqaultity = this.Capacity == testVenue.Capactiy;
-        return (idEquality && nameEquality && sizeEquality, capactiyEqaultity);
+        bool capactiyEqaultity = this.Capacity == testVenue.Capacity;
+        return (idEquality && nameEquality && sizeEquality && capactiyEqaultity);
       }
     }
 
@@ -51,7 +51,7 @@ namespace BandTracker.Objects
       SqlCommand cmd = new SqlCommand("INSERT INTO venues (name, size, capacity) OUTPUT INSERTED.id VALUES (@name, @size, @capacity);", conn);
       cmd.Parameters.AddWithValue("@name", this.Name);
       cmd.Parameters.AddWithValue("@size", this.Size);
-      cmd.Parameters.AddWithValue("@capactiy", this.Capacity);
+      cmd.Parameters.AddWithValue("@capacity", this.Capacity);
 
       SqlDataReader rdr = cmd.ExecuteReader();
 
@@ -129,7 +129,7 @@ namespace BandTracker.Objects
       conn.Open();
 
       SqlCommand cmd = new SqlCommand("UPDATE venues (name, size, capacity) WHERE id = @targetId VALUES (@name, @size, @capacity);", conn);
-      cmd.Parameters.AddWithValue("@targetId", targetId)
+      cmd.Parameters.AddWithValue("@targetId", targetId);
       cmd.Parameters.AddWithValue("@name", newName);
       cmd.Parameters.AddWithValue("@size", newSize);
       cmd.Parameters.AddWithValue("@capactiy", newCapacity);

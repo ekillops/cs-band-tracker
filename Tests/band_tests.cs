@@ -7,12 +7,12 @@ using BandTracker.Objects;
 
 namespace BandTracker
 {
-  public class BandTest : IDisposable
+  public class BandTests : IDisposable
   {
 
-    public void ClientTest()
+    public void BandTest()
     {
-      DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hair_salon_test;Integrated Security=SSPI;";
+      DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=band_tracker_test;Integrated Security=SSPI;";
     }
 
     public void Dispose()
