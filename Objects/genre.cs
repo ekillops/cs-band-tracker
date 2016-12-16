@@ -139,11 +139,62 @@ namespace BandTracker.Objects
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
-    
+
       SqlCommand cmd = new SqlCommand("DELETE FROM genres_venues; DELETE FROM bands_genres; DELETE FROM genres;", conn);
       cmd.ExecuteNonQuery();
 
       if (conn != null) conn.Close();
+    }
+
+    public List<Band> GetBands()
+    {
+      List<Band> allBands = new List<Band> {};
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT bands.* FROM genres JOIN bands_genres ON (genres.id = bands_genres.genre_id) JOIN bands ON (bands_genres.band_id = bands.id) WHERE genres.id = @genreId;", conn);
+      cmd.Parameters.AddWithValue("@genreId", this.Id);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while (rdr.Read())
+      {
+        int bandId = rdr.GetInt32(0);
+        string bandName = rdr.GetString(1);
+        int bandMembers = rdr.GetInt32(2)
+        allBands.Add(new Band(bandName, bandMembers, bandId));
+      }
+      if (rdr != null) rdr.Close();
+      if (conn != null) conn.Close();
+
+      return allBands;
+    }
+
+    public List<Venue> GetVenues()
+    {
+      List<Venue> allVenues = new List<Venue> {};
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT venues.* FROM genres JOIN genres_venues ON (genres.id = genres_venues.genre_id) JOIN venues ON (genres_venues.venue_id = venues.id) WHERE genres.id = @genreId;", conn);
+      cmd.Parameters.AddWithValue("@genreId", this.Id);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while (rdr.Read())
+      {
+        int foundId = rdr.GetInt32(0);
+        string foundName = rdr.GetString(1);
+        string foundSize = rdr.GetString(2);
+        int foundCapacity = rdr.GetInt32(3);
+        allVenues.Add(new Venue(foundName, foundSize, foundCapacity, foundId));
+      }
+      if (rdr != null) rdr.Close();
+      if (conn != null) conn.Close();
+
+      return allVenues;
     }
   }
 }

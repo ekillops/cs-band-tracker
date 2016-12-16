@@ -230,5 +230,31 @@ namespace BandTracker.Objects
 
       return allGenres;
     }
+
+    public List<Venue> GetVenues()
+    {
+      List<Venue> allVenues = new List<Venue> {};
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT venues.* FROM bands JOIN performances ON (bands.id = performances.band_id) JOIN venues ON (performances.venue_id = venues.id) WHERE bands.id = @bandId;", conn);
+      cmd.Parameters.AddWithValue("@bandId", this.Id);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while (rdr.Read())
+      {
+        int foundId = rdr.GetInt32(0);
+        string foundName = rdr.GetString(1);
+        string foundSize = rdr.GetString(2);
+        int foundCapacity = rdr.GetInt32(3);
+        allVenues.Add(new Venue(foundName, foundSize, foundCapacity, foundId));
+      }
+      if (rdr != null) rdr.Close();
+      if (conn != null) conn.Close();
+
+      return allVenues;
+    }
   }
 }
