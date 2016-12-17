@@ -124,7 +124,7 @@ namespace BandTracker.Objects
       SqlCommand cmd = new SqlCommand("UPDATE bands SET name = @name, number_members = @numberMembers WHERE id = @targetId;", conn);
       cmd.Parameters.AddWithValue("@targetId", targetId);
       cmd.Parameters.AddWithValue("@name", newName);
-      cmd.Parameters.AddWithValue("@@numberMembers", newNumberMembers);
+      cmd.Parameters.AddWithValue("@numberMembers", newNumberMembers);
       cmd.ExecuteNonQuery();
 
       if (conn != null) conn.Close();

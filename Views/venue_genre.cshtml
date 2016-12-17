@@ -1,0 +1,25 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+  var venues = (List) Model["venues"];
+  var genres = (List) Model["genres"];
+}
+<h3>Add Genre to Venue</h3>
+
+<form action="/venue-genre" method="post">
+  <select name="venue" class="form-control">
+    <option disabled selected>Venue</option>
+    @foreach(var venue in venues)
+    {
+      <option value="@venue.Id">@venue.Name</option>
+    }
+  </select>
+  <select name="genre" class="form-control">
+    <option disabled selected>Genre</option>
+    @foreach(var genre in genres)
+    {
+      <option value="0">Undefined</option>
+      <option value="@genre.Id">@genre.Name</option>
+    }
+  </select>
+  <button type="submit" class="btn btn-primary btn-md">Add</button>
+</form>

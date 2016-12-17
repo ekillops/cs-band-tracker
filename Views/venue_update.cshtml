@@ -3,8 +3,9 @@
 }
 <h3>Update Venue</h3>
 
-<form action="/venues/@Model.Id/update" method="post">
+<form action="/venues/update" method="post">
   <input type="hidden" name="_method" value="PATCH">
+  <input type="hidden" name="target-id" value="@Model.Id">
   <input type="text" class="form-control" name="venue-name" value="@Model.Name" required>
   <select name="venue-size" class="form-control">
     <option value="@Model.Size" selected>@Model.Size</option>

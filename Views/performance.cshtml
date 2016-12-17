@@ -1,0 +1,24 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+  var venues = Model["venues"];
+  var bands = Model["bands"];
+}
+<h3>Add A Performance</h3>
+
+<form action="/performance" method="post">
+  <select name="venue" class="form-control">
+    <option disabled selected>Venue</option>
+    @foreach(var venue in venues)
+    {
+      <option value="@venue.Id">@venue.Name</option>
+    }
+  </select>
+  <select name="band" class="form-control">
+    <option disabled selected>Band</option>
+    @foreach(var band in bands)
+    {
+      <option value="@band.Id">@band.Name</option>
+    }
+  </select>
+  <button type="submit" class="btn btn-primary btn-md">Add</button>
+</form>

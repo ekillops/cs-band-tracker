@@ -1,0 +1,25 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+  var bands = Model["bands"];
+  var genres = Model["genres"];
+}
+<h3>Add Genre to Band</h3>
+
+<form action="/band-genre" method="post">
+  <select name="band" class="form-control">
+    <option disabled selected>Band</option>
+    @foreach(var band in bands)
+    {
+      <option value="@band.Id">@band.Name</option>
+    }
+  </select>
+  <select name="genre" class="form-control">
+    <option disabled selected>Genre</option>
+    @foreach(var genre in genres)
+    {
+      <option value="0">Undefined</option>
+      <option value="@genre.Id">@genre.Name</option>
+    }
+  </select>
+  <button type="submit" class="btn btn-primary btn-md">Add</button>
+</form>

@@ -3,7 +3,9 @@
 }
 <h3>Update Genre</h3>
 
-<form action="/genres/new" method="post">
+<form action="/genres/update" method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <input type="hidden" name="target-id" value="@Model.Id">
   <input type="text" class="form-control" name="genre-name" value="@Model.Name" required>
   <button type="submit" class="btn btn-primary btn-md">Update</button>
 </form>

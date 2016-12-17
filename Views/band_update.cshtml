@@ -3,8 +3,9 @@
 }
 <h3>Update Band</h3>
 
-<form action="/bands/{id}/update" method="post">
+<form action="/bands/update" method="post">
   <input type="hidden" name="_method" value="PATCH">
+  <input type="hidden" name="target-id" value="@Model.Id">
   <input type="text" class="form-control" name="band-name" value="@Model.Name" required>
   <select name="number-members" class="form-control">
     <option value="@Model.NumberMembers" selected>@Model.NumberMembers</option>

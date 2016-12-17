@@ -5,13 +5,13 @@
 
 <form action="/venues/new" method="post">
   <input type="text" class="form-control" name="venue-name" placeholder="Venue name" required>
-  <select name="venue-size" class="form-control">
+  <select name="venue-size" class="form-control" required>
     <option disabled selected>Venue size</option>
     <option value="small">Small</option>
     <option value="medium">Medium</option>
     <option value="large">Large</option>
   </select>
-  <select name="venue-capacity" class="form-control">
+  <select name="venue-capacity" class="form-control" required>
     <option disabled selected>Venue capacity</option>
     <option value="50">50</option>
     <option value="100">100</option>
