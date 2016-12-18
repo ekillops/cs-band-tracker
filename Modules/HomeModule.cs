@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Nancy;
 using Nancy.ViewEngines.Razor;
+using System.Linq;
 using BandTracker.Objects;
 
 namespace BandTracker
@@ -85,7 +86,7 @@ namespace BandTracker
 
       Get["/venues/{id}/update"] = parameters => {
         Venue foundVenue = Venue.Find(parameters.id);
-        return View["update_venue.cshtml", foundVenue];
+        return View["venue_update.cshtml", foundVenue];
       };
 
       Patch["/venues/update"] = parameters => {
@@ -95,7 +96,7 @@ namespace BandTracker
         int targetId = int.Parse(Request.Form["target-id"]);
         Venue.Update(targetId, newVenueName, newVenueSize, newVenueCapacity);
         Venue foundVenue = Venue.Find(targetId);
-        return View["update_venue.cshtml", foundVenue];
+        return View["venue_update.cshtml", foundVenue];
       };
 
       Delete["/venues/delete"] =_=> {
@@ -146,7 +147,7 @@ namespace BandTracker
 
       Get["/genres/{id}/update"] = parameters => {
         Genre foundGenre = Genre.Find(parameters.id);
-        return View["update_genre.cshtml", foundGenre];
+        return View["genre_update.cshtml", foundGenre];
       };
 
       Patch["/genres/update"] = parameters => {
@@ -154,7 +155,7 @@ namespace BandTracker
         int targetId = int.Parse(Request.Form["target-id"]);
         Genre.Update(targetId, newGenreName);
         Genre foundGenre = Genre.Find(targetId);
-        return View["update_genre.cshtml", foundGenre];
+        return View["genre_update.cshtml", foundGenre];
       };
 
       Get["/venue-genre"] =_=> {
@@ -201,7 +202,7 @@ namespace BandTracker
         return View["band.cshtml", foundBand];
       };
 
-////performances
+// Performances
       Get["/performance"] =_=> {
         List<Band> allBands = Band.GetAll();
         List<Venue> allVenues = Venue.GetAll();

@@ -16,8 +16,8 @@ else
   <p>There are no genres to display.</p>
 }
 <p>
-  <a href="/genres/new" class="btn btn-primary btn-md">New Genre</a>
   <form class="form-inline" action="/genres/delete_all" method="post">
+    <a href="/genres/new" class="btn btn-primary btn-md">New Genre</a>
     <input type="hidden" name="_method" value="DELETE">
     <button type="submit" class="btn btn-primary btn-md">Delete All</button>
   </form>

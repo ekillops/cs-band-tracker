@@ -42,8 +42,8 @@
   </div>
   <div class="col-md-2">
     <p>
-      <a href="/bands/@Model.Id/update" class="btn btn-primary btn-md">Edit Band</a>
       <form  class="form-inline" action="/bands/delete" method="post">
+        <a href="/bands/@Model.Id/update" class="btn btn-primary btn-md">Edit Band</a>
         <input type="hidden" name="_method" value="DELETE">
         <input type="hidden" name="target-id" value="@Model.Id">
         <button type="submit" class="btn btn-primary bnt-md">Delete Band</button>

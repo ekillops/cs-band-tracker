@@ -15,7 +15,7 @@
     <ul>
       @foreach(var genre in genres)
       {
-        <li>@genre.Name</li>
+        <li>@genre.Value</li>
       }
     </ul>
     <p><small><a href="/venues/@venue.Id">[visit venue page]</small></a></p>
@@ -26,10 +26,10 @@ else
   <p>There are no bands to display</p>
 }
 <p>
-  <a href="/venues/new" class="btn btn-primary btn-md">New Venue</a>
-  <a href="/venue-genre" class="btn btn-primary btn-md">Add Genre To Venue</a>
-  <a href="/performance" class="btn btn-primary btn-md">Add A Performance</a>
   <form class="form-inline" action="/venues/delete_all" method="post">
+    <a href="/venues/new" class="btn btn-primary btn-md">New Venue</a>
+    <a href="/venue-genre" class="btn btn-primary btn-md">Add Genre To Venue</a>
+    <a href="/performance" class="btn btn-primary btn-md">Add A Performance</a>
     <input type="hidden" name="_method" value="DELETE">
     <button type="submit" class="btn btn-primary btn-md">Delete All</button>
   </form>

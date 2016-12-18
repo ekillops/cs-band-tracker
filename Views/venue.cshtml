@@ -16,7 +16,7 @@
       <ul>
       @foreach(var genre in genres)
       {
-        <li>@genre.Name</li>
+        <li>@genre.Value</li>
       }
       </ul>
     }
@@ -43,8 +43,8 @@
   </div>
   <div class="col-md-2">
     <p>
-      <a href="/venues/@Model.Id/update" class="btn btn-primary btn-md">Edit Venue</a>
       <form class="form-inline" action="/venues/delete" method="post">
+        <a href="/venues/@Model.Id/update" class="btn btn-primary btn-md">Edit Venue</a>
         <input type="hidden" name="_method" value="DELETE">
         <input type="hidden" name="target-id" value="@Model.Id">
         <button type="submit" class="btn btn-primary btn-md">Delete Venue</button>

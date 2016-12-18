@@ -15,9 +15,9 @@
   </select>
   <select name="genre" class="form-control">
     <option disabled selected>Genre</option>
+    <option value="0">Undefined</option>
     @foreach(var genre in genres)
     {
-      <option value="0">Undefined</option>
       <option value="@genre.Id">@genre.Name</option>
     }
   </select>
