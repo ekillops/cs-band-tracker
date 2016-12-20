@@ -136,7 +136,7 @@ namespace BandTracker.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("DELETE FROM performances WHERE band_id = @targetId; DELETE FROM bands WHERE id = @targetId;", conn);
+      SqlCommand cmd = new SqlCommand("DELETE FROM bands_genres WHERE band_id = @targetId; DELETE FROM performances WHERE band_id = @targetId; DELETE FROM bands WHERE id = @targetId;", conn);
       cmd.Parameters.AddWithValue("@targetId", targetId);
       cmd.ExecuteNonQuery();
 
@@ -148,7 +148,7 @@ namespace BandTracker.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("DELETE FROM performances; DELETE FROM bands;", conn);
+      SqlCommand cmd = new SqlCommand("DELETE FROM bands_genres; DELETE FROM performances; DELETE FROM bands;", conn);
       cmd.ExecuteNonQuery();
 
       if (conn != null) conn.Close();

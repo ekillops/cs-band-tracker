@@ -6,15 +6,15 @@
 <h3>Add A Performance</h3>
 
 <form action="/performance" method="post">
-  <select name="venue" class="form-control">
-    <option disabled selected>Venue</option>
+  <label for="venue">Venue</label>
+  <select name="venue" class="form-control" required>
     @foreach(var venue in venues)
     {
       <option value="@venue.Id">@venue.Name</option>
     }
   </select>
-  <select name="band" class="form-control">
-    <option disabled selected>Band</option>
+  <label for="genre">Genre</label>
+  <select name="band" class="form-control" required>
     @foreach(var band in bands)
     {
       <option value="@band.Id">@band.Name</option>

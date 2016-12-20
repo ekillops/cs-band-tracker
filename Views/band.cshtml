@@ -1,6 +1,6 @@
 @{
   Layout="Shared/_Layout.cshtml";
-  var genres = Model.GetGenres(); @*Object list*@
+  var genres = Model.GetGenres(); @*Dictionary*@
   var performances = Model.GetPerformances(); @*Dictionary*@
 }
 <div class="row">
@@ -15,7 +15,7 @@
       <ul>
       @foreach(var genre in genres)
       {
-        <li>@genre.Name</li>
+        <li>@genre.Value</li>
       }
       </ul>
     }

@@ -21,7 +21,7 @@ namespace BandTracker
       Venue.DeleteAll();
     }
 
-    [Fact] //Tests find and save at the same time
+    [Fact] //CREATE + READ
     public void Save_SavesToDataBase_EquivalentObject()
     {
       //Arrange
@@ -33,8 +33,22 @@ namespace BandTracker
       Assert.Equal(testBand, retrievedBand);
     }
 
+    [Fact]//READ
+    public void GetAll_RetrievesCorrectObject_EquivalentObject()
+    {
+      //Arrange
+      Band testBand1 = new Band("The Chameleons", 4);
+      testBand1.Save();
+      Band testBand2 = new Band("The Olllam", 4);
+      testBand2.Save();
+      List<Band> expectedResult = new List<Band> { testBand1, testBand2 };
+      //Act
+      List<Band> result = Band.GetAll();
+      //Assert
+      Assert.Equal(expectedResult, result);
+    }
 
-    [Fact]
+    [Fact]//DELETE
     public void DeleteAll_EmptiesDatabase_EmptyList()
     {
       //Arrange
@@ -50,7 +64,7 @@ namespace BandTracker
       Assert.Equal(expectedEmptyList, resultList);
     }
 
-    [Fact]
+    [Fact]//DELETE
     public void Delete_DeletesTargetBand_ListLength1()
     {
       //Arrange
@@ -66,7 +80,7 @@ namespace BandTracker
       Assert.Equal(expectedList, resultList);
     }
 
-    [Fact]//Also tests AddPerformance
+    [Fact]
     public void GetPerformances_RetrievesDataFromDB_DictionaryOfInfo()
     {
       //Arrange

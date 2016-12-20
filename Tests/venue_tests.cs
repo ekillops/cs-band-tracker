@@ -20,7 +20,7 @@ namespace BandTracker
       Venue.DeleteAll();
     }
 
-    [Fact] //Tests find and save at the same time
+    [Fact] //CREATE + READ
     public void Save_SavesToDataBase_EquivalentObject()
     {
       //Arrange
@@ -32,8 +32,22 @@ namespace BandTracker
       Assert.Equal(testVenue, retrievedVenue);
     }
 
+    [Fact]//READ
+    public void GetAll_RetrievesCorrectObject_EquivalentObject()
+    {
+      //Arrange
+      Venue testVenue1 = new Venue("Doug Fir", "Medium", 300);
+      testVenue1.Save();
+      Venue testVenue2 = new Venue("Mississippi Studios", "Medium", 300);
+      testVenue2.Save();
+      List<Venue> expectedResult = new List<Venue> { testVenue1, testVenue2 };
+      //Act
+      List<Venue> result = Venue.GetAll();
+      //Assert
+      Assert.Equal(expectedResult, result);
+    }
 
-    [Fact]
+    [Fact]//DELETE
     public void DeleteAll_EmptiesDatabase_EmptyList()
     {
       //Arrange
@@ -49,7 +63,7 @@ namespace BandTracker
       Assert.Equal(expectedEmptyList, resultList);
     }
 
-    [Fact]
+    [Fact]//DELETE
     public void Delete_DeletesTargetVenue_ListLength1()
     {
       //Arrange

@@ -6,16 +6,15 @@
 <h3>Add Genre to Band</h3>
 
 <form action="/band-genre" method="post">
-  <select name="band" class="form-control">
-    <option disabled selected>Band</option>
+  <label for="band">Band</label>
+  <select name="band" class="form-control" required>
     @foreach(var band in bands)
     {
       <option value="@band.Id">@band.Name</option>
     }
   </select>
-  <select name="genre" class="form-control">
-    <option disabled selected>Genre</option>
-    <option value="0">Undefined</option>
+  <label for="genre">Genre</label>
+  <select name="genre" class="form-control" required>
     @foreach(var genre in genres)
     {
       <option value="@genre.Id">@genre.Name</option>

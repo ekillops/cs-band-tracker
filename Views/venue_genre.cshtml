@@ -1,23 +1,22 @@
 @{
   Layout="Shared/_Layout.cshtml";
-  var venues = Model["venues"];
-  var genres = Model["genres"];
+  var venues = Model["venues"]; @*object list*@
+  var genres = Model["genres"]; @*object list*@
 }
 <h3>Add Genre to Venue</h3>
 
 <form action="/venue-genre" method="post">
-  <select name="venue" class="form-control">
-    <option disabled selected>Venue</option>
+  <label for="venue">Venue</label>
+  <select name="venue" class="form-control" required>
     @foreach(var venue in venues)
     {
       <option value="@venue.Id">@venue.Name</option>
     }
   </select>
-  <select name="genre" class="form-control">
-    <option disabled selected>Genre</option>
+  <label for="genre">Genre</label>
+  <select name="genre" class="form-control" required>
     @foreach(var genre in genres)
     {
-      <option value="0">Undefined</option>
       <option value="@genre.Id">@genre.Name</option>
     }
   </select>
